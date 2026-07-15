@@ -1,27 +1,46 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import LoginScreen from './pages/LoginScreen';
-import DashboardScreen from './pages/DashboardScreen';
-import SapiScreen from './pages/SapiScreen';
-import DombaScreen from './pages/DombaScreen';
-import KambingScreen from './pages/KambingScreen';
-import DetailScreen from './pages/DetailScreen';
+import PeoplePage from './pages/PeopleScreen';
+import FormPeoplePage from './pages/FormPeopleScreen';
+import TrackerPage from './pages/TrackerScreen';
+import FormTrackerPage from './pages/FormTrackerScreen';
+import PeopleScreen from './pages/PeopleScreen';
+import FormPeopleScreen from './pages/FormPeopleScreen';
+import TrackerScreen from './pages/TrackerScreen';
+import FormTrackerScreen from './pages/FormTrackerScreen';
 
-const Stack = createNativeStackNavigator();
+const PeopleStack = createNativeStackNavigator();
+function PeopleStackScreen() {
+  return (
+    <PeopleStack.Navigator>
+      <PeopleStack.Screen name="People" component={PeopleScreen} />
+      <PeopleStack.Screen name="FormPeople" component={FormPeopleScreen} />
+    </PeopleStack.Navigator>
+  );
+}
+
+const TrackerStack = createNativeStackNavigator();
+function TrackerStackScreen() {
+  return (
+    <TrackerStack.Navigator>
+      <TrackerStack.Screen name="Tracker" component={TrackerScreen} />
+      <TrackerStack.Screen name="FormTracker" component={FormTrackerScreen} />
+    </TrackerStack.Navigator>
+  );
+}
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Dashboard" component={DashboardScreen} />
-        <Stack.Screen name="Sapi" component={SapiScreen} />
-        <Stack.Screen name="Domba" component={DombaScreen} />
-        <Stack.Screen name="Kambing" component={KambingScreen} />
-        <Stack.Screen name="Detail" component={DetailScreen} />
-      </Stack.Navigator>
+      <Tab.Navigator>
+        <Tab.Screen name="PeopleTab" component={PeopleStackScreen} options={{ title: 'People' }} />
+        <Tab.Screen name="TrackerTab" component={TrackerStackScreen} options={{ title: 'Tracker' }} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
